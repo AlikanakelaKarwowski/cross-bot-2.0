@@ -43,6 +43,41 @@ client.on('ready', () => {
         })
     })
     
+    command(client, 'embed', message => {
+        const logo = message.guild.iconURL()
+        const embed = new Discord.MessageEmbed()
+        .setTitle('Example Text')
+        .setAuthor("Shin Ma")
+        .setURL('https://duckduckgo.com')
+        .setThumbnail(logo)
+        .setFooter('This is a footer')
+        .setColor('#FF0000')
+        .addFields(
+            {
+                name: 'Banned User',
+                value: 'Get from command',
+                inline: true
+            },
+            {
+                name: 'Ban Message',
+                value: 'Get from command',
+                inline: true
+            },
+            {
+                name:'Date',
+                value: 'GetDate(), getMonth() getFullYear(), on new Date() objecty',
+                inline: true
+            },
+            {
+                name:'Moderator',
+                value: message.author,
+
+            }
+            
+            )
+        message.channel.send(embed)
+
+    })
 })
 
 client.login(config.token)
