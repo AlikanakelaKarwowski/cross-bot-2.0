@@ -90,6 +90,8 @@ client.on('ready', async () => {
         message.channel.send(embed)
 
     })
+    
+    welcome(client)
 })
 
 client.login(config.token)
