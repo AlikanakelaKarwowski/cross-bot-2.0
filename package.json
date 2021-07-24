@@ -18,5 +18,8 @@
   "homepage": "https://github.com/AlikanakelaKarwowski/cross-bot-2.0#readme",
   "dependencies": {
     "discord.js": "^12.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
