@@ -1,0 +1,22 @@
+{
+  "name": "cross-bot-2.0",
+  "version": "1.0.0",
+  "description": "Cross server ban tracking bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlikanakelaKarwowski/cross-bot-2.0.git"
+  },
+  "author": "Alex K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlikanakelaKarwowski/cross-bot-2.0/issues"
+  },
+  "homepage": "https://github.com/AlikanakelaKarwowski/cross-bot-2.0#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
