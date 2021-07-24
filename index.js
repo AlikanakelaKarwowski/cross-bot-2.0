@@ -3,12 +3,24 @@ const client = new Discord.Client()
 const config = require('./config.json')
 const command = require('./util/command')
 const firstMessage = require('./util/first-message')
+const welcome = require('./util/welcome')
 const pm = require('./util/private-message')
+const mongo = require('./util/mongoose')
 
 //==========//End Imports//==========//
 
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log('The client is ready')
+    
+    await mongo().then(mongoose => {
+        try {
+            console.log('Connected to mongodb')
+        } catch (err) {
+            console.log(err)
+        }finally {
+            mongoose.connection.close()
+        }
+    })
 
     firstMessage(client, '868293138421284968', 'hello world!!!', ['🔥', '🍉'])
     
