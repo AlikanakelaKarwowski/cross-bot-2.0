@@ -28,6 +28,7 @@ client.on('ready', async () => {
     
     readCommands('commands')
     commandBase.listen(client)
+    commandBase.loadPrefixes(client)
     
 })
 
