@@ -1,4 +1,7 @@
-const { prefix } = require('../config.json')
+const { prefix: globalPrefix } = require('../config.json')
+const mongo = require('../util/mongoose')
+const commandPrefix = require('../schemas/command-prefix')
+const guildPrefixes = {}
 
 const validatePerms = permissions => {
     // List of all valid discord permissions
@@ -83,6 +86,7 @@ module.exports.listen = (client) => {
     client.on('message', message => {
         const { member, content, guild } = message
 
+        const prefix = guildPrefixes[guild.id] || globalPrefix
         // Split on any number of spaces
         const arguments = content.split(/[ ]+/)
 
@@ -143,4 +147,22 @@ module.exports.listen = (client) => {
             callback(message, arguments, arguments.join(' '))
         }
     })
+}
+
+module.exports.loadPrefixes =  async client => {
+    await mongo().then(async mongoose => {
+        try { 
+            for(const guild of client.guilds.cache) {
+                const result = await commandPrefix.findById({_id: guild[1].id})
+                guildPrefixes[guild[1].id] = result.prefix
+            }
+            console.log(guildPrefixes)
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
+module.exports.updateCache = (guildID, newPrefix) => {
+    guildPrefixes[guildID] = newPrefix
 }
