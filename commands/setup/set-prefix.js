@@ -8,7 +8,7 @@ module.exports = {
     expectedArgs: "<This bot's new command prefix>",
     permissionError: "You must be an admin to run this command.",
     permissions: 'ADMINISTRATOR',
-    callback: async (message, arguments, text) => {
+    callback: async (message, arguments) => {
         await mongo().then(async mongoose => {
             try {
                 const _id = message.guild.id
