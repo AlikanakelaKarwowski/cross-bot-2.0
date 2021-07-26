@@ -7,7 +7,6 @@ module.exports = {
     permissions: ['ADMINISTRATOR'],
     callback: async (message) => {
         const messages = await message.channel.messages.fetch()
-        console.log(messages)
         message.channel.bulkDelete(messages)
     }
 };
