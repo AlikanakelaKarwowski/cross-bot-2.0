@@ -8,9 +8,8 @@ module.exports = {
     requiredRoles: [],
     callback: async (message, arguments) => {
         const target = message.mentions.users.first()
-        
         if(target) {
-            await mongo()
+            const con = await mongo()
             const Discord_id = target.id
             const User = target.username || "N/A"
             arguments.shift()
@@ -30,6 +29,8 @@ module.exports = {
                 await ban.save()  
             }catch (err) {
                 console.log(err)
+            } finally {
+                con.connection.close()
             }
             
             const embed = new Discord.MessageEmbed()
@@ -58,18 +59,18 @@ module.exports = {
 
 
         } else {
-            await mongo()
+            const con = await mongo()
             const Discord_id = arguments[0]
-            const member= await message.guild.members.fetch()
-            
-            if(member.get(Discord_id)) {
-                const User = member.get(Discord_id).user.username
+            const member = await message.guild.members.fetch(Discord_id)
+            console.log(member)
+            if(member) {
+                const User = member.user.username
                 
                 arguments.shift()
                 const Reason = arguments.join(' ')
                 
                 const Moderator = message.author.username
-                const Server = member.get(Discord_id).guild.name
+                const Server = member.guild.name
                 const ban = new banList( {
                     Discord_id,
                     User,
@@ -81,6 +82,8 @@ module.exports = {
                     await ban.save()
                 }catch (err) {
                     console.log(err)
+                } finally {
+                    con.connection.close()
                 }
                 const embed = new Discord.MessageEmbed()
                 .setTitle(`${User} Banned`)
