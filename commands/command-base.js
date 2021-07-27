@@ -139,7 +139,7 @@ module.exports.listen = (client) => {
             // Ensure we have the correct number of arguments
             if (arguments.length < minArgs ||
                 (maxArgs !== null && arguments.length > maxArgs)) {
-                message.reply(`Incorrect syntax! Use ${prefix}${alias} ${expectedArgs}`)
+                message.reply(`Incorrect syntax! Use ${prefix}${command.commands} ${expectedArgs}`)
                 return
             }
 
