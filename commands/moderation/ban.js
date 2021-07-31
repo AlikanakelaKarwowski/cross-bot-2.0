@@ -1,4 +1,3 @@
-const mongo = require('../../util/mongoose')
 const Commando = require('discord.js-commando')
 const banList = require('../../schemas/banList')
 const Discord = require('discord.js')
