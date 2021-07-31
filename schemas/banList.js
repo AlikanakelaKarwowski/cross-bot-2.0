@@ -24,11 +24,12 @@ const banList = mongoose.Schema({
         required: true
     },
     Date: {
-        type: Date,
+        type: String,
         required: false,
         default: function() { 
             const d = new Date
-            return d.toDateString()
+            const date = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}` 
+            return date
         }
     }
 });
