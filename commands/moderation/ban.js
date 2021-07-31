@@ -2,6 +2,7 @@ const mongo = require('../../util/mongoose')
 const Commando = require('discord.js-commando')
 const banList = require('../../schemas/banList')
 const Discord = require('discord.js')
+const roleList = require('../../schemas/roleList')
 module.exports = class BanCommand extends Commando.Command {
     constructor(client) {
         super(client, {
@@ -16,10 +17,9 @@ module.exports = class BanCommand extends Commando.Command {
     }
 
     hasPermission(message) {
-        console.log(message.member.roles.cache.some(role => role.name.toLowerCase() === 'canban'))
-        // TODO: Access Guild Preferances for Roles that allow users to ban people.
         // TODO: Create a command to set guild roles for banning people.
-        return (message.member.roles.cache.some(role => role.name === "canban"))
+        const roles = await roleList.find({Guild_id: message.guild.id})
+        return (message.member.roles.cache.some(role => roles.includes(role)))
     }
 
     async run(message, args) {
