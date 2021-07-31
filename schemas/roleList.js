@@ -9,3 +9,5 @@ const roleList = mongoose.Schema({
         required: false
     }
 })
+
+module.exports = mongoose.model('role-list', roleList)
