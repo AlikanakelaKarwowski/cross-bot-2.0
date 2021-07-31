@@ -16,21 +16,21 @@ module.exports = class BanCommand extends Commando.Command {
     }
 
     hasPermission(message) {
+        console.log(message.member.roles.cache.some(role => role.name.toLowerCase() === 'canban'))
         // TODO: Access Guild Preferances for Roles that allow users to ban people.
         // TODO: Create a command to set guild roles for banning people.
-        return true
+        return (message.member.roles.cache.some(role => role.name === "canban"))
     }
 
     async run(message, args) {
         var Discord_id = args[0];
-        console.log(isNaN(Discord_id));
         if (Discord_id.startsWith("<@")) {
             Discord_id = Discord_id.match(/\d{17,18}/)[0];
         } else if (isNaN(Discord_id) || !Discord_id) {
             message.channel.send("You probably typed something in wrong.");
             return;
         }
-        const conn = await mongo();
+       
         const member = await message.guild.members.fetch(Discord_id);
 
         if (member) {
@@ -50,8 +50,6 @@ module.exports = class BanCommand extends Commando.Command {
                 await ban.save();
             } catch (err) {
                 console.log(err);
-            } finally {
-                conn.connection.close();
             }
 
             const embed = new Discord.MessageEmbed()
