@@ -7,7 +7,7 @@ const Commando = require('discord.js-commando')
 const config = require('./config.json')
 const mongo = require('./util/mongoose')
 const banList = require('./schemas/banList')
-
+const roleList = require('./schemas/roleList')
 //==========//End Imports//==========//
 
 const client = new Commando.CommandoClient({
@@ -39,6 +39,17 @@ client.on('ready', async () => {
     ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, 'commands'))
+    
+    let guild_ids = client.guilds.cache.map(guild => guild.id)
+    let roles = {}
+    for(let guild_id of guild_ids) {
+        roles[guild_id] = await roleList.find({Guild_id: guild_id})
+    }
+    client.roleCache = roles
+    //console.log(client.registry)
 })
+client.on('guildMemberAdd', async(message) => {
+    
 
+} )
 client.login(config.token)
