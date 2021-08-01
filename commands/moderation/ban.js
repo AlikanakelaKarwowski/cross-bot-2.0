@@ -16,25 +16,21 @@ module.exports = class BanCommand extends Commando.Command {
         });
     }
 
-    async hasPermission(message) {
+    hasPermission(message) {
         // TODO: Create a command to set guild roles for banning people.
-        
-        // roleList.find({Guild_id: message.guild.id}).then(roles => {
-        //     console.log(roles[0].Roles)
-        //     const b= (message.member.roles.cache.some(role => roles[0].Roles.includes(role.name)))
-        //     console.log("Has permission?", b)
-        //     return b
-        // })
-        
-        
-        
+        let roles = this.client.roleCache[message.guild.id]
+        console.log(roles)
+        if(roles) {
+            return  message.member.roles.cache.some(role => roles[0].Roles.includes(role.name))
+        }
+        return false
     }
 
     async run(message, args) {
-        const perm = await roleList.find({ Guild_id: message.guild.id });
-        console.log(perm[0].Roles);
-        const hasPerm =  message.member.roles.cache.some((role) => perm[0].Roles.includes(role.name));
-        if(hasPerm) {
+        // const perm = await roleList.find({ Guild_id: message.guild.id });
+        // console.log(perm[0].Roles);
+        // const hasPerm =  message.member.roles.cache.some((role) => perm[0].Roles.includes(role.name));
+        // if(hasPerm) {
             var Discord_id = args[0];
             if (Discord_id.startsWith("<@")) {
                 Discord_id = Discord_id.match(/\d{17,18}/)[0];
@@ -90,9 +86,9 @@ module.exports = class BanCommand extends Commando.Command {
             } else {
                 message.channel.send(`An Error has occured or discord is just being dumb`);
             }
-        } else {
-            message.channel.send(`<@${message.member.id}> You do not have permission to run the \`ban\` command.`)
-        }
+        // } else {
+        //     message.channel.send(`<@${message.member.id}> You do not have permission to run the \`ban\` command.`)
+        // }
 
     }
 };
