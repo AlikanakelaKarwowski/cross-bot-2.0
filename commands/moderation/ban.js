@@ -1,7 +1,7 @@
 const Commando = require('discord.js-commando')
 const banList = require('../../schemas/banList')
 const Discord = require('discord.js')
-const roleList = require('../../schemas/roleList')
+
 
 module.exports = class BanCommand extends Commando.Command {
     constructor(client) {
