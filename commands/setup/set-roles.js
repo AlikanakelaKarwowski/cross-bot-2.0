@@ -1,6 +1,8 @@
 const Commando = require('discord.js-commando')
 const roleList = require('../../schemas/roleList')
 const Discord = require('discord.js')
+const update_roles = require('../../util/update_roles')
+
 
 module.exports = class setRoleCommand extends Commando.Command{
     constructor(client){
@@ -19,7 +21,6 @@ module.exports = class setRoleCommand extends Commando.Command{
         return message.guild.ownerID === message.member.id
     }
     async run(message, args){
-        console.log("running set prefix")
         const role = args.join(" ")
         try{
             await roleList.updateOne(
@@ -30,6 +31,7 @@ module.exports = class setRoleCommand extends Commando.Command{
         } catch(err) {
             console.log(err)
         }
+        update_roles(this.client)
         message.channel.send(`The role \`${role}\` was added to the list that can use the ban command.`)
         
     }
