@@ -1,6 +1,5 @@
 const Commando = require('discord.js-commando')
 const roleList = require('../../schemas/roleList')
-const Discord = require('discord.js')
 const update_roles = require('../../util/update_roles')
 
 
