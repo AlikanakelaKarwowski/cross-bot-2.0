@@ -24,7 +24,7 @@ module.exports = class setRoleCommand extends Commando.Command{
         try{
             await roleList.updateOne(
                 { Guild_id: message.guild.id },
-                { $addToSet: { Roles: role.toLowerCase() } },
+                { $addToSet: { Roles: role} },
                 { upsert: true }
                 );
         } catch(err) {

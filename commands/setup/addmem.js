@@ -15,6 +15,5 @@ module.exports = class addMemberCommand extends Commando.Command {
 
     async run(message) {
         this.client.emit('guildMemberAdd', this.client.user)
-        this.client.emit('guildMemberAdd', message.member)
     }
 }
