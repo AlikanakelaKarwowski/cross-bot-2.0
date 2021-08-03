@@ -7,6 +7,8 @@ const config = require("./config.json");
 const mongo = require("./util/mongoose");
 const banList = require("./schemas/banList");
 const roleList = require("./schemas/roleList");
+const update_roles = require('./util/update_roles');
+const update_channels = require('./util/update_channels');
 //==========//End Imports//==========//
 
 const client = new Commando.CommandoClient({
@@ -38,13 +40,16 @@ client.on("ready", async () => {
         ])
         .registerDefaults()
         .registerCommandsIn(path.join(__dirname, "commands"));
+    
+    update_roles(client);
+    update_channels(client);
+    // let guild_ids = client.guilds.cache.map((guild) => guild.id);
+    // let roles = {};
+    // for (let guild_id of guild_ids) {
+    //     roles[guild_id] = await roleList.find({ Guild_id: guild_id });
+    // }
 
-    let guild_ids = client.guilds.cache.map((guild) => guild.id);
-    let roles = {};
-    for (let guild_id of guild_ids) {
-        roles[guild_id] = await roleList.find({ Guild_id: guild_id });
-    }
-    client.roleCache = roles;
+    // client.roleCache = roles;
 });
 
 client.on("guildMemberAdd", async (member) => {
