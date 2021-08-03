@@ -9,7 +9,7 @@ module.exports = class setRoleCommand extends Commando.Command{
             name: 'setrole',
             group: "setup",
             memberName: "setrole",
-            description: "Set the role for users that can use the ban command. Use this command for each role you would like to add to allowed roles.",
+            description: "Set the role for users that can use the ban command. Use the name of the role, capitalization matters. For additional roles run command again.",
             argsType: "multiple",
             guildOnly: true,
             examples: ["setrole <RoleName>"]
