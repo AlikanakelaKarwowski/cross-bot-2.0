@@ -54,6 +54,7 @@ client.on("ready", async () => {
 
 client.on("guildMemberAdd", async (member) => {
     console.log("searching for bans");
+    const {Channel} = await channelList.find({Guild_id: member.guild.id})
     const bans = await banList.find({ Discord_id: member.id });
     if (!bans) {
         return;
@@ -64,7 +65,7 @@ client.on("guildMemberAdd", async (member) => {
                 .setTitle(`Warning ${ban.User} was previously banned `)
                 .setAuthor(ban.Moderator)
                 .setFooter(`ID:${ban.Discord_id}\t Cross Bot 2.0`)
-                .setColor("#FFOOOO")
+                .setColor("#DD6E2E")
                 .addFields(
                     {
                         name: "User",
@@ -82,7 +83,7 @@ client.on("guildMemberAdd", async (member) => {
                         inline: true,
                     }
                 );
-            client.channels.cache.get("871520230881509416").send(embed);
+            client.channels.cache.get(Channel).send(embed);
         }
     }
 });
