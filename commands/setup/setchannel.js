@@ -21,14 +21,14 @@ module.exports = class setChannelCommand extends Commando.Command {
     async run(message, args){
         const Channel = args[1]
         try{
-            await channnelList.updateOne(
+            await channelList.updateOne(
                 {Guild_id: message.guild.id},
                 {Channel},
                 {upsert: true})
         } catch (err) {
             console.log(err)
         }
-        updateChannels(this.client)
+        update_channel(this.client)
         message.channel.cache.get(Channel).send(`I will send you notifications in this channel.`)
     }
 }
